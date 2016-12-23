@@ -1,3 +1,60 @@
+//todos
+//add a header with store name
+//add sidebar for filter/sort options
+//add dummy add to cart button
+//add dummy header nav links
+//filtering by min/max price
+//sorting by name, price, date
+
+var addHeader = () => {
+  const body = document.getElementById('body');
+  const header = document.createElement('div');
+  header.classList.add('verticalContainer');
+  header.id = 'header';
+  body.appendChild(header);
+  const title = document.createElement('h3');
+  title.classList.add('title');
+  title.innerText = "THE FIJI STORE";
+  header.appendChild(title);
+  const tagline = document.createElement('h3');
+  tagline.classList.add('tagline');
+  tagline.innerText = "Because Your Fiji Water is THAT Important";
+  header.appendChild(tagline);
+};
+
+var setMainBody = () => {
+  const body = document.getElementById('body');
+  const main = document.createElement('div');
+  header.classList.add('horizontalContainer');
+  main.id = 'main';
+  body.appendChild(main);
+}
+
+var addSideBar = () => {
+  const main = document.getElementById('main');
+  const sidebar = document.createElement('div');
+  sidebar.classList.add('verticalContainer');
+  sidebar.classList.add('sidebar');
+  sidebar.id = "sidebar";
+  const sidebartitle = document.createElement('h2');
+  sidebartitle.innerText="Filter";
+  sidebar.appendChild(sidebartitle);
+  const filter = document.createElement('input');
+  filter.placeholder = "Max Price";
+  filter.value = "Max Price";
+  sidebar.appendChild(filter);
+  main.appendChild(sidebar);
+};
+
+var addMainBody = () => {
+  const main = document.getElementById('main');
+  const mainBody = document.createElement('div');
+  mainBody.classList.add('verticalContainer');
+  mainBody.id = "mainBody";
+  main.appendChild(mainBody);
+};
+
+
 var item = $.ajax({
   method: 'GET',
   url: 'http://sneakpeeq-sites.s3.amazonaws.com/interviews/ce/feeds/store.js',
@@ -7,6 +64,10 @@ var item = $.ajax({
   dataType: 'json', //return a json object that can be parsed
 
   success: function(data){
+    addHeader();
+    setMainBody();
+    addSideBar();
+    addMainBody();
     let meta = $(data);
     let products = meta[0].products;
     console.log(products);
@@ -30,10 +91,11 @@ var item = $.ajax({
 
 const createListItem = (product) => //pulls information from data and creates separate item div for each product
 {
-  const body = document.getElementById('body');
+  const body = document.getElementById('mainBody');
   const productItem = document.createElement('div');
   productItem.classList.add('item');
   const imageContainer = document.createElement('div');
+  imageContainer.classList.add('imageContainer');
   const verticalContainer = document.createElement('div');
   productItem.appendChild(imageContainer);
   productItem.appendChild(verticalContainer);
@@ -48,12 +110,16 @@ const createListItem = (product) => //pulls information from data and creates se
   const dollars = Math.floor(product.msrpInCents/100);
   const cents = stringCents((product.msrpInCents%100));
   price.textContent = "Price: $" + dollars + "." + cents;
-
   verticalContainer.appendChild(price);
+  const createdDate = product.createdAt;
   body.appendChild(productItem);
 };
 
 const stringCents = (cents) => //helper method to convert given 'msrpInCents' to proper format
 {
     return cents > 9 ? "" + cents: "0" + cents;
+};
+
+const sort = (parameter, products) => {
+
 };
