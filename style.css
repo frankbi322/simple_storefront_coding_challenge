@@ -1,0 +1,19 @@
+.item {
+  display: flex;
+  border: 1px solid gray;
+}
+
+.verticalContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.horizontalContainer{
+  display: flex;
+  flex-direction: row;
+
+}
+
+.imageContainer {
+  display: flex;
+}
