@@ -1,7 +1,6 @@
 //todos
 //add a header with store name
 //add sidebar for filter/sort options
-//add dummy add to cart button
 //add dummy header nav links
 //filtering by min/max price
 //sorting by name, price, date
@@ -96,21 +95,25 @@ const createListItem = (product) => //pulls information from data and creates se
   productItem.classList.add('item');
   const imageContainer = document.createElement('div');
   imageContainer.classList.add('imageContainer');
-  const verticalContainer = document.createElement('div');
+  const detailContainer = document.createElement('div');
+  detailContainer.classList.add('itemDetailContainer');
   productItem.appendChild(imageContainer);
-  productItem.appendChild(verticalContainer);
+  productItem.appendChild(detailContainer);
   const image = document.createElement('img');
   const imageUrl = "http:" + product.mainImage.ref;
   image.src = imageUrl;
   imageContainer.appendChild(image);
   const name = document.createElement('h3');
   name.textContent = product.name;
-  verticalContainer.appendChild(name);
+  detailContainer.appendChild(name);
   const price = document.createElement('h4');
   const dollars = Math.floor(product.msrpInCents/100);
   const cents = stringCents((product.msrpInCents%100));
   price.textContent = "Price: $" + dollars + "." + cents;
-  verticalContainer.appendChild(price);
+  detailContainer.appendChild(price);
+  const addToCart = document.createElement('button');
+  addToCart.innerText="Add to Cart";
+  detailContainer.appendChild(addToCart);
   const createdDate = product.createdAt;
   body.appendChild(productItem);
 };
