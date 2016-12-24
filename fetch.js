@@ -4,6 +4,7 @@
 //add dummy header nav links
 //filtering by min/max price
 //sorting by name, price, date
+//have three rows of products instead of one column?
 
 var addHeader = () => {
   const body = document.getElementById('body');
@@ -24,10 +25,10 @@ var addHeader = () => {
 var setMainBody = () => {
   const body = document.getElementById('body');
   const main = document.createElement('div');
-  header.classList.add('horizontalContainer');
+  main.classList.add('horizontalContainer');
   main.id = 'main';
   body.appendChild(main);
-}
+};
 
 var addSideBar = () => {
   const main = document.getElementById('main');
@@ -123,6 +124,10 @@ const stringCents = (cents) => //helper method to convert given 'msrpInCents' to
     return cents > 9 ? "" + cents: "0" + cents;
 };
 
-const sort = (parameter, products) => {
-
+const sorted = (products, parameter) => {
+  return products.sort((a,b) => a.parameter > b.parameter ? 1 : -1);
 };
+
+// const filtered = (products, parameter, value) => {
+//   return products.filter(product => (product.paramter));
+// };
