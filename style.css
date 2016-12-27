@@ -107,3 +107,7 @@ button:hover{
 input{
   margin-bottom: 10px;
 }
+
+.hide{
+  display: none;
+}
