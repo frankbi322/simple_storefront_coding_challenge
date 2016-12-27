@@ -5,6 +5,9 @@
 //filtering by min/max price
 //sorting by name, price, date
 //have three rows of products instead of one column?
+//put the addheader,sidebar, etc into a domcontentloaded callback
+//change to grid format for water
+//change header to solid color, replace background with gradient
 
 var addHeader = () => {
   const body = document.getElementById('body');
@@ -39,38 +42,62 @@ var addSideBar = () => {
   const sidebartitle = document.createElement('h2');
   sidebartitle.innerText="Filter";
   sidebar.appendChild(sidebartitle);
-  const filter = document.createElement('input');
-  filter.placeholder = "Max Price";
-  filter.value = "Max Price";
-  sidebar.appendChild(filter);
+  const maxPriceFilter = document.createElement('input');
+  maxPriceFilter.placeholder = "Max Price";
+  maxPriceFilter.id = "maxPriceFilter";
+  sidebar.appendChild(maxPriceFilter);
+  const minPriceFilter = document.createElement('input');
+  minPriceFilter.placeholder = "Min Price";
+  minPriceFilter.id = "minPriceFilter";
+  sidebar.appendChild(minPriceFilter);
+  const submit = document.createElement('button');
+  submit.id = "refineSearch";
+  submit.innerText = "Refine Search";
+  sidebar.appendChild(submit);
   main.appendChild(sidebar);
 };
 
 var addMainBody = () => {
   const main = document.getElementById('main');
-  const mainBody = document.createElement('div');
+  const mainBody = document.createElement('ul');
   mainBody.classList.add('verticalContainer');
   mainBody.id = "mainBody";
   main.appendChild(mainBody);
 };
 
+var clear = () => {
+  const list = document.getElementById('mainBody');
+  while (list.firstChild) {
+    list.removeChild(list.firstChild);
+  }
+};
 
-var item = $.ajax({
+document.addEventListener("DOMContentLoaded", function(event) {
+  addHeader();
+  setMainBody();
+  addSideBar();
+  addMainBody();
+  fetch();
+  const searchInput = document.getElementById('refineSearch');
+  searchInput.addEventListener('click', fetch);
+});
+
+
+const fetch = ()=>{
+  clear();
+ $.ajax({
   method: 'GET',
   url: 'http://sneakpeeq-sites.s3.amazonaws.com/interviews/ce/feeds/store.js',
   contentType: 'application/json',
-  cache:false,
+  cache: false,
   crossOrigin: true, //need this to prevent cross origin errors
   dataType: 'json', //return a json object that can be parsed
 
   success: function(data){
-    addHeader();
-    setMainBody();
-    addSideBar();
-    addMainBody();
+
     let meta = $(data);
     let products = meta[0].products;
-    console.log(products);
+    // console.log(products);
     products.forEach(product => {
       createListItem(product);
     });
@@ -88,11 +115,15 @@ var item = $.ajax({
   }
   }
 });
+}
 
 const createListItem = (product) => //pulls information from data and creates separate item div for each product
 {
+  const maxPrice = document.getElementById('maxPriceFilter').value;
+  const minPrice = document.getElementById('minPriceFilter').value;
+  console.log(maxPrice);
   const body = document.getElementById('mainBody');
-  const productItem = document.createElement('div');
+  const productItem = document.createElement('li');
   productItem.classList.add('item');
   const imageContainer = document.createElement('div');
   imageContainer.classList.add('imageContainer');
@@ -107,15 +138,25 @@ const createListItem = (product) => //pulls information from data and creates se
   const name = document.createElement('h3');
   name.textContent = product.name;
   detailContainer.appendChild(name);
-  const price = document.createElement('h4');
+  const priceDisplay = document.createElement('h4');
   const dollars = Math.floor(product.msrpInCents/100);
   const cents = stringCents((product.msrpInCents%100));
-  price.textContent = "Price: $" + dollars + "." + cents;
-  detailContainer.appendChild(price);
+  const price = dollars + '.' + cents;
+  priceDisplay.textContent = "Price: $" + price;
+  detailContainer.appendChild(priceDisplay);
   const addToCart = document.createElement('button');
   addToCart.innerText="Add to Cart";
   detailContainer.appendChild(addToCart);
   const createdDate = product.createdAt;
+  if (product.price < maxPrice || maxPrice === "") {
+    productItem.style.display = "";
+  }
+  else if (product.price > minPrice || minPrice === "") {
+    productItem.style.display = "";
+  }
+  else {
+    productItem.style.display = "none";
+  }
   body.appendChild(productItem);
 };
 
@@ -128,6 +169,31 @@ const sorted = (products, parameter) => {
   return products.sort((a,b) => a.parameter > b.parameter ? 1 : -1);
 };
 
-// const filtered = (products, parameter, value) => {
-//   return products.filter(product => (product.paramter));
-// };
+
+
+
+const refine = () => {
+  // var maxPrice = document.getElementById('maxPriceFilter').value;
+  // var minPrice = document.getElementById('minPriceFilter').value;
+  // var ul = document.getElementById('mainBody');
+  // var li = ul.getElementsByTagName('li');
+  // var i;
+  // console.log(ul);
+  //
+  // for (i = 0; i < li.length; i++) {
+  //   console.log(li[i]);
+  //   if (maxPrice < li[i].price) {
+  //     li[i].style.display = "";
+  //   } else {
+  //     li[i].style.display = "none";
+  //   }
+  // }
+  // for (i = 0; i < li.length; i++) {
+  //   if (minPrice > li[i].price) {
+  //     li[i].style.display = "";
+  //   } else {
+  //     li[i].style.display = "none";
+  //   }
+  // }
+  // console.log(ul);
+};
