@@ -59,6 +59,10 @@ var addSideBar = () => {
   defaultOption.selected = "selected";
   sortOptions.add(defaultOption);
 
+  const alpha = document.createElement('option');
+  alpha.text = "Alphabetically";
+  sortOptions.add(alpha);
+
   const priceHiLow = document.createElement('option');
   priceHiLow.text = "Price: High to Low";
   sortOptions.add(priceHiLow);
@@ -191,6 +195,8 @@ const stringCents = (cents) => //helper method to convert given 'msrpInCents' to
 const sort = (products) => {
   const sortOption = document.getElementById('sortOptions').value;
   switch (sortOption) {
+    case "Alphabetically":
+      return products.sort((a,b) => a.name < b.name ? -1 : 1);
     case "Price: High to Low":
       return products.sort((a,b) => a.msrpInCents < b.msrpInCents ? 1 : -1);
     case "Price: Low to High":
