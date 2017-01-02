@@ -1,11 +1,11 @@
 //todos
-//add a header with store name
-//add sidebar for filter/sort options
+//add a header with store name - DONE
+//add sidebar for filter/sort options - DONE
 //add dummy header nav links
-//filtering by min/max price
-//sorting by name, price, date
+//filtering by min/max price - DONE
+//sorting by name, price, date - DONE
 //have three rows of products instead of one column?
-//put the addheader,sidebar, etc into a domcontentloaded callback
+//put the addheader,sidebar, etc into a domcontentloaded callback - DONE
 //change to grid format for water
 //change header to solid color, replace background with gradient
 
@@ -40,27 +40,43 @@ var addSideBar = () => {
   sidebar.classList.add('sidebar');
   sidebar.id = "sidebar";
   const sidebartitle = document.createElement('h2');
-  sidebartitle.innerText="Filter";
+  sidebartitle.innerText="Refine Search";
   sidebar.appendChild(sidebartitle);
-  const maxPriceFilter = document.createElement('input');
-  maxPriceFilter.placeholder = "Max Price";
-  maxPriceFilter.id = "maxPriceFilter";
-  sidebar.appendChild(maxPriceFilter);
+
+  const priceSpan = document.createElement('span');
+  priceSpan.innerText = "Filter By Price";
+  sidebar.appendChild(priceSpan);
+  const priceFilters = document.createElement('div');
+  priceFilters.classList.add('horizontalContainer');
+
   const minPriceFilter = document.createElement('input');
   minPriceFilter.placeholder = "Min Price";
   minPriceFilter.id = "minPriceFilter";
-  sidebar.appendChild(minPriceFilter);
+  priceFilters.appendChild(minPriceFilter);
+  sidebar.appendChild(priceFilters);
 
+  const maxPriceFilter = document.createElement('input');
+  maxPriceFilter.placeholder = "Max Price";
+  maxPriceFilter.id = "maxPriceFilter";
+  priceFilters.appendChild(maxPriceFilter);
+
+
+  const sortSpan = document.createElement('span');
+  sortSpan.innerText = "Sort Products";
+  sidebar.appendChild(sortSpan);
 
   const sortOptions = document.createElement('select');
   sortOptions.id = "sortOptions";
 
-  const defaultOption = document.createElement('option');
-  defaultOption.selected = "selected";
-  sortOptions.add(defaultOption);
+  // const defaultOption = document.createElement('option');
+  // defaultOption.text = "Sort By";
+  // defaultOption.opacity = 1;
+  // defaultOption.selected = "selected";
+  // sortOptions.add(defaultOption);
 
   const alpha = document.createElement('option');
   alpha.text = "Alphabetically";
+  alpha.selected = "selected";
   sortOptions.add(alpha);
 
   const priceHiLow = document.createElement('option');
