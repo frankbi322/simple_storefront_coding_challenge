@@ -11,6 +11,6 @@ The next step was to create a storefront to display the products with those deta
 
 Bonus features, which I have completed, included:
 
-** Adding a feature to filter products by minimum and maximum prices.
-** Adding a sorting selector to sort products by price (high to low and low to high), alphabetically, and by product creation date.
-** These features were added in a sidebar. Upon clicking a "Refine Search" button, the browser makes a new AJAX call and re-renders the main body with the updated products list given the filter/sort parameters.
+1. Adding a feature to filter products by minimum and maximum prices.
+2. Adding a sorting selector to sort products by price (high to low and low to high), alphabetically, and by product creation date.
+3. These features were added in a sidebar. Upon clicking a "Refine Search" button, the browser makes a new AJAX call and re-renders the main body with the updated products list given the filter/sort parameters.
