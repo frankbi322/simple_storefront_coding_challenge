@@ -135,8 +135,9 @@ const fetch = ()=>{
   clear();
  $.ajax({
   method: 'GET',
+  async: false,
   url: 'http://sneakpeeq-sites.s3.amazonaws.com/interviews/ce/feeds/store.js',
-  contentType: 'application/json',
+  contentType: 'application/json; charset=utf-8',
   cache: false,
   crossOrigin: true, //need this to prevent cross origin errors
   dataType: 'json', //return a json object that can be parsed

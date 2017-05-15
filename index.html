@@ -5,17 +5,31 @@
   <title>Coding Challenge</title>
   <link rel="stylesheet" href="style.css">
   <script src="jquery.js"></script>
-  <script src="storefront.js"></script>
-  <script src="fetch.js"></script>
+  <!-- <script src="fetch.js"></script> -->
   <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
 
 </head>
 <body id='body'>
+  <div class="verticalContainer">
+    <h3 id="header">The Fiji Store</h3>
+  </div>
 
+  <div class="horizontalContainer">
+    <div id="sidebar">
+      <form>
+        <label>Min Price</label>
+        <input placeholder="Enter Amount"></input>
+        <label>Max Price</label>
+        <input placeholder="Enter Amount"></input>
 
-<script>
+      </form>
+    </div>
 
+    <div class="verticalContainer">
+      <ul id='list'></ul>
+    </div>
 
-</script>
-  </body>
+  </div>
+</body>
+  <script src=fetch2.js></script>
 </html>

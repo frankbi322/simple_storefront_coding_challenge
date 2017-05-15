@@ -4,6 +4,10 @@ body {
   font-family: 'Gotham', sans-serif;
 }
 
+#list {
+  list-style-type: none;
+}
+
 .item {
   display: flex;
   border: 1px solid gray;
